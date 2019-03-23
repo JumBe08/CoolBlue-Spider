@@ -1,3 +1,29 @@
+# Added by me
+.idea
+
+# Taken from scrapy's github
+/.vagrant
+/scrapy.iml
+*.pyc
+_trial_temp*
+dropin.cache
+docs/build
+*egg-info
+.tox
+venv
+build
+dist
+.idea
+htmlcov/
+.coverage
+.pytest_cache/
+.coverage.*
+.cache/
+
+# Windows
+Thumbs.db
+
+#Default github
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
