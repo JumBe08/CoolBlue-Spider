@@ -1,0 +1,69 @@
+coolblue spider
+
+ - we need to grab all the product category links from "https://www.coolblue.nl/en/our-assortment";
+
+ - some of the links in this page are sublinks of categories already linked here. For example, the phones section links
+   to "Mobile Phones" and "Smartphonex". Their URLs are, respectively:
+
+        - "https://www.coolblue.nl/en/mobile-phones"
+        - "https://www.coolblue.nl/en/mobile-phones/smartphones"
+
+   This is a problem, because we will be scraping products more than one time. Instead of checking if there are
+   repeated products, I will check instead if there are sub-links present on the assortment page, because it is easier
+   to do so.
+
+ - Each category section on the CoolBlue assortment page has more links. Some of them are in the assortments page,
+   but others are not. We need to check all the links in all the "more" sections and save every unique category.
+
+   These "More.." sections ended up being a lot of trouble. For some reason, they only show up in the webpage when we
+   load it a few times. However, if I clear the cache they won't be there. Their links will now be in the category
+   section's header, which is easy to scrap. This page is what scrapy sees too, in the first place, even though it can
+   eventually reach a state where it sees the cached page version.
+
+ - Both the assortment page categories and the category sections have to be scraped, because some links only exist
+   in one of these two options.
+
+   For example, the category "Laptop sleeves" doesn't show up at the assortment page but it does in "Laptops,
+   desktops & monitors"'s page. On the other hand, under "Cookware and bakeware" we have category called "Store
+   and preserve". If we open that section's page that category isn't listed there.
+
+ - When i open up a category section from the assortment page I'm always expecting a page where i need to parse
+   categories. There are two fields in these pages, the grid and the index. In the index, category links listed there
+   seem to always lead me to a page with products belonging to it. The grid categories however might lead me to other
+   category pages, with subcategories.
+
+   Take for example the category section "Laptops, Desktops & Monitors", from the assortment page. In its grid view,
+   there is a category called "Laptops" which will lead me to a page with a listing of products in said category.
+   However, if i choose the category "Software" I'll be instead shown another category section, with many subcategories
+   belonging to the father category "Software". I need therefore to recognize which kind of page I'm dealing with when
+   arriving at a category section page
+
+ - The dont_filter argument in the scrapy.Request has to be set to true in the first "if" statement from function
+   parse_product_page. If it isn't used the spider wont get some of the category pages, because it considers them
+   as duplicates. Setting the argument to true in all of the spider's requests will make it go into an infine
+   loop. We could set them in the requests from "parse_category_navigation", on top of said "if" statement's
+   request to achieve similar results, albeit we would make a bit more requests. The first option therefore gives
+   us the best result, all things considered
+
+ - Im not getting all the second chance products, at least. For some reason, one category seems to only be able
+   to display 20 pages of products. This is a problem, because 20 pages isnt enough to list all the second
+   chance products. There is a link for a second chance oportunity, when available, at a products' page.
+   However, I'm not sure now how to guarantee that i cover all the products from other categories. If a category
+   has more than 20 pages in products, how do I access all of them? I can only go up to 20.
+
+   Its true. Im not getting all products due to the page cap. One example:
+
+   https://www.coolblue.nl/en/product/825147/asus-zenbook-ux362fa-el070t.html
+
+   It isnt listed
+
+
+
+
+ISSUES:
+
+    - repeated products; check
+    - second-chance-product's urls check
+    - Im not getting the antivirus software at least
+
+Issue: When i ac
