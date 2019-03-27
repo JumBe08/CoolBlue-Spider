@@ -90,4 +90,4 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # LOG_STDOUT = True
-# LOG_FILE = 'CoolBlue_Assortment_Log.txt'
+# LOG_FILE = 'CoolBlue_Assortment_4_Log.txt'
